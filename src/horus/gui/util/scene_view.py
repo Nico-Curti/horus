@@ -70,7 +70,7 @@ class SceneView(opengl_gui.glGuiPanel):
         self.update_profile_to_controls()
 
     def on_show(self, event):
-        if event.GetShow():
+        if event.IsShown():
             self.GetParent().Layout()
             self.Layout()
 
@@ -89,7 +89,7 @@ class SceneView(opengl_gui.glGuiPanel):
                 del self._object._mesh
             del self._object
         if self._platform_mesh is not None:
-            for _object in self._platform_mesh.values():
+            for _object in list(self._platform_mesh.values()):
                 if _object._mesh is not None:
                     if _object._mesh.vbo is not None and _object._mesh.vbo.dec_ref():
                         self.gl_release_list.append(_object._mesh.vbo)
@@ -110,7 +110,7 @@ class SceneView(opengl_gui.glGuiPanel):
         # TODO: optimize
         if self._object is not None:
             if self._object._mesh is not None:
-                for i in xrange(point.shape[1]):
+                for i in range(point.shape[1]):
                     self._object._mesh._add_vertex(
                         point[0][i], point[1][i], point[2][i],
                         color[0][i], color[1][i], color[2][i])
@@ -598,7 +598,7 @@ class SceneView(opengl_gui.glGuiPanel):
                         obj._mesh.vertexes[:obj._mesh.vertex_count],
                         obj._mesh.normal[:obj._mesh.vertex_count])
                 if brightness != 0:
-                    glColor4fv(map(lambda idx: idx * brightness, self._obj_color))
+                    glColor4fv([idx * brightness for idx in self._obj_color])
                 obj._mesh.vbo.render()
         glPopMatrix()
 
@@ -646,7 +646,7 @@ class SceneView(opengl_gui.glGuiPanel):
 
             # Draw the sides of the build volume.
             glBegin(GL_QUADS)
-            for n in xrange(0, len(polys[0])):
+            for n in range(0, len(polys[0])):
                 if machine_shape == 'Rectangular':
                     if n % 2 == 0:
                         glColor4ub(5, 171, 231, 96)

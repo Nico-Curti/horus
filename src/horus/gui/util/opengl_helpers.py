@@ -73,7 +73,7 @@ class GLShader(GLReferenceCounter):
                 raise RuntimeError("Link failure: %s" % (glGetProgramInfoLog(self._program)))
             glDeleteShader(vertex_shader)
             glDeleteShader(fragment_shader)
-        except RuntimeError, e:
+        except RuntimeError as e:
             logger.error(str(e))
             self._program = None
 
@@ -245,7 +245,7 @@ class GLVBO(GLReferenceCounter):
             batch_size = 996
             extra_start_pos = int(self._size / batch_size) * batch_size  # leftovers.
             extra_count = self._size - extra_start_pos
-            for i in xrange(0, int(self._size / batch_size)):
+            for i in range(0, int(self._size / batch_size)):
                 glDrawArrays(self._render_type, i * batch_size, batch_size)
             glDrawArrays(self._render_type, extra_start_pos, extra_count)
 
@@ -301,7 +301,7 @@ def unproject(winx, winy, winz, model_matrix, proj_matrix, viewport):
     final_matrix = np_model_matrix * np_proj_matrix
     final_matrix = numpy.linalg.inv(final_matrix)
 
-    viewport = map(float, viewport)
+    viewport = list(map(float, viewport))
     if viewport[2] > 0 and viewport[3] > 0:
         vector = numpy.array([(winx - viewport[0]) / viewport[2] * 2.0 - 1.0,
                               (winy - viewport[1]) / viewport[3] * 2.0 - 1.0,
@@ -321,12 +321,13 @@ def load_gl_texture(filename):
     glBindTexture(GL_TEXTURE_2D, tex)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
-    img = wx.ImageFromBitmap(wx.Bitmap(get_path_for_image(filename)))
+    #img = wx.ImageFromBitmap(wx.Bitmap(get_path_for_image(filename)))
+    img = wx.Bitmap.ConvertToImage(wx.Bitmap(get_path_for_image(filename)))
     rgb_data = img.GetData()
-    alpha_data = img.GetAlphaData()
+    alpha_data = img.GetAlphaBuffer()
     if alpha_data is not None:
         data = ''
-        for i in xrange(0, len(alpha_data)):
+        for i in range(0, len(alpha_data)):
             data += rgb_data[i * 3:i * 3 + 3] + alpha_data[i]
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.GetWidth(),
                      img.GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, data)

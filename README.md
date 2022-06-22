@@ -4,6 +4,8 @@
 [![License](http://img.shields.io/:license-gpl-blue.svg)](http://opensource.org/licenses/GPL-2.0)
 [![Documentation Status](https://readthedocs.org/projects/horus/badge/?version=release-0.2)](http://horus.readthedocs.io/en/release-0.2/?badge=release-0.2)
 
+> :warning: **Note:** This forked version supports Python 3.* and orginal OpenCV library with a ready-to-use Python program!
+
 Horus is a general solution for 3D laser scanning. It provides graphic user interfaces for connection, configuration, control, calibration and scanning with Open Source [Ciclop 3D Scanner](https://github.com/bqlabs/ciclop).
 
 This is a research project to explore the 3D laser scan with free tools. Feel free to use it for experiments, modify and adapt it to new devices and contribute new features or ideas.
@@ -85,3 +87,35 @@ More interest links are shown below:
 [debian-logo]: doc/images/debian.png
 [raspbian-logo]: doc/images/raspbian.png
 [fedora-logo]: doc/images/fedora.png
+
+
+#### - Forked version notes -
+
+In this forked version we have *converted* the Python 2.* scripts into Python 3.* counterpart using [2to3](https://docs.python.org/3/library/2to3.html).
+
+Further edits and fixes are performed for the compatibility of the package with the latest versions of the required libraries.
+
+In detail, the current requirements are:
+
+* wxpython
+* requests
+* serial
+* staty
+* opencv-python
+* pyopengl
+
+All the requirements can be easily installed using the *requirements.txt* file, as
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+> :warning: **Windows Users:** Installing standard PyOpenGL package you can fall in errors like
+
+```
+> PyOpenGL :: OpenGL.error.NullFunctionError: Attempt to call an undefined function glutInit, check for bool(glutInit) before calling
+```
+
+> You can solve this kind of issue manually installing the library available at this [link](https://www.lfd.uci.edu/~gohlke/pythonlibs/) as suggested [here](https://stackoverflow.com/a/65699812)
+
+You can use the package **without** the installation of the setup, but launching directly the [`horus`](https://github.com/Nico-Curti/horus/blob/master/horus) script at the root of the project.

@@ -42,13 +42,10 @@ class WizardPage(wx.Panel):
         hbox.Add(self.video_view, 0, wx.ALL, 0)
         vbox.Add(hbox, 1, wx.ALL | wx.EXPAND, 20)
         hbox = wx.BoxSizer(wx.HORIZONTAL)
-        hbox.Add(self.prev_button, 0, wx.ALL | wx.EXPAND |
-                 wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_LEFT, 2)
+        hbox.Add(self.prev_button, 0, wx.ALL | wx.EXPAND | wx.ALIGN_LEFT, 2)#| wx.ALIGN_CENTER_VERTICAL, 2)
         hbox.Add((0, 0), 1, wx.EXPAND)
-        hbox.Add(self.skip_button, 0, wx.ALL | wx.EXPAND |
-                 wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT, 2)
-        hbox.Add(self.next_button, 0, wx.ALL | wx.EXPAND |
-                 wx.ALIGN_CENTER_VERTICAL | wx.ALIGN_RIGHT, 2)
+        hbox.Add(self.skip_button, 0, wx.ALL | wx.EXPAND, 2)#| wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL, 2)
+        hbox.Add(self.next_button, 0, wx.ALL | wx.EXPAND, 2)#| wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL, 2)
         vbox.Add(hbox, 0, wx.ALL | wx.EXPAND, 10)
 
         self.SetSizer(vbox)
@@ -88,7 +85,7 @@ class Breadcrumbs(wx.Panel):
         hbox = wx.BoxSizer(wx.HORIZONTAL)
         for page in self.pages:
             title = wx.StaticText(self, label=page.title)
-            title.SetCursor(wx.StockCursor(wx.CURSOR_HAND))
+            title.SetCursor(wx.Cursor(wx.CURSOR_HAND))
             if self.GetParent().title == page.title:
                 title_font = title.GetFont()
                 title_font.SetWeight(wx.BOLD)

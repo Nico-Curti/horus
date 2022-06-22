@@ -71,7 +71,7 @@ class ConnectionPage(WizardPage):
         self.update_status(driver.is_connected)
 
     def on_show(self, event):
-        if event.GetShow():
+        if event.IsShown():
             driver.board.lasers_off()
             self.update_status(driver.is_connected)
         else:
@@ -123,7 +123,7 @@ class ConnectionPage(WizardPage):
                     self,
                     _("The board has the wrong firmware or an invalid baud rate.\n"
                       "Please select your board and press \"Upload firmware\""),
-                    _(result), wx.OK | wx.ICON_INFORMATION)
+                    _(str(result)), wx.OK | wx.ICON_INFORMATION)
                 dlg.ShowModal()
                 dlg.Destroy()
                 self.update_status(False)
@@ -133,7 +133,7 @@ class ConnectionPage(WizardPage):
                     self,
                     _("The board is not connected.\n"
                       "Please connect your board and select a valid Serial name"),
-                    _(result), wx.OK | wx.ICON_INFORMATION)
+                    _(str(result)), wx.OK | wx.ICON_INFORMATION)
                 dlg.ShowModal()
                 dlg.Destroy()
                 self.update_status(False)
@@ -143,7 +143,7 @@ class ConnectionPage(WizardPage):
                     self,
                     _("The board has and old firmware.\n"
                       "Please select your board and press \"Upload firmware\""),
-                    _(result), wx.OK | wx.ICON_INFORMATION)
+                    _(str(result)), wx.OK | wx.ICON_INFORMATION)
                 dlg.ShowModal()
                 dlg.Destroy()
                 self.update_status(False)
@@ -153,7 +153,7 @@ class ConnectionPage(WizardPage):
                     self,
                     _("You probably have selected the wrong camera.\n"
                       "Please select another Camera ID"),
-                    _(result), wx.OK | wx.ICON_INFORMATION)
+                    _(str(result)), wx.OK | wx.ICON_INFORMATION)
                 dlg.ShowModal()
                 dlg.Destroy()
                 self.update_status(False)
@@ -161,13 +161,13 @@ class ConnectionPage(WizardPage):
             elif isinstance(result, CameraNotConnected):
                 dlg = wx.MessageDialog(
                     self, _("Please plug your camera in and try to connect again"),
-                    _(result), wx.OK | wx.ICON_ERROR)
+                    _(str(result)), wx.OK | wx.ICON_ERROR)
                 dlg.ShowModal()
                 dlg.Destroy()
             elif isinstance(result, InvalidVideo):
                 dlg = wx.MessageDialog(
                     self, _("Unplug and plug your camera USB cable and try to connect again"),
-                    _(result), wx.OK | wx.ICON_ERROR)
+                    _(str(result)), wx.OK | wx.ICON_ERROR)
                 dlg.ShowModal()
                 dlg.Destroy()
             elif isinstance(result, WrongDriver):
@@ -175,7 +175,7 @@ class ConnectionPage(WizardPage):
                     dlg = wx.MessageDialog(
                         self, _("Please, download and install the camera driver: \n"
                                 "http://support.logitech.com/en_us/product/hd-webcam-c270"),
-                        _(result), wx.OK | wx.ICON_ERROR)
+                        _(str(result)), wx.OK | wx.ICON_ERROR)
                     dlg.ShowModal()
                     dlg.Destroy()
 

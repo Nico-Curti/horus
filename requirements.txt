@@ -1,0 +1,6 @@
+wxpython
+serial
+resources
+staty
+opencv-python
+pyopengl
