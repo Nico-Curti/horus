@@ -1,4 +1,4 @@
-wxpython
+wxpython==4.0.7.post2
 serial
 resources
 staty

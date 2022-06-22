@@ -97,7 +97,7 @@ Further edits and fixes are performed for the compatibility of the package with 
 
 In detail, the current requirements are:
 
-* wxpython
+* wxpython==4.0.7.post2
 * requests
 * serial
 * staty
